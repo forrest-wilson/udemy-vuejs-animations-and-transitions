@@ -58,6 +58,12 @@
                 <transition name="fade" mode="out-in">
                     <component :is="selectedComponent"></component>
                 </transition>
+                <hr>
+                <button class="btn btn-primary" @click="addItem">Add Item</button>
+                <br><br>
+                <ul class="list-group">
+                    <li class="list-group-item" v-for="(num, i) in numbers" :key="num" @click="removeItem(i)" style="cursor: pointer;">{{ num }}</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -73,7 +79,8 @@
                 alertAnimation: 'fade',
                 load: true,
                 elementWidth: 100,
-                selectedComponent: 'SuccessAlert'
+                selectedComponent: 'SuccessAlert',
+                numbers: [1, 2, 3, 4, 5]
             }
         },
         methods: {
@@ -123,6 +130,13 @@
             },
             leaveCancelled () {
                 console.log('leave cancelled');
+            },
+            addItem () {
+                const pos = Math.floor(Math.random() * this.numbers.length);
+                this.numbers.splice(pos, 0, this.numbers.length + 1);
+            },
+            removeItem(i) {
+                this.numbers.splice(i, 1);
             }
         },
         components: {
